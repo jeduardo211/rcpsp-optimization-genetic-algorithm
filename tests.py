@@ -3,8 +3,8 @@ from Task import Task
 from Resource import Resource
 import numpy as np
 
-print('----------------------------------------------')
-print('Test 1: Creating a Schedule object')
+print("----------------------------------------------")
+print("Test 1: Creating a Schedule object")
 
 schedule = Schedule()
 
@@ -20,16 +20,18 @@ schedule.add_renewable_resource(resource2)
 schedule.add_task(task1)
 schedule.add_task(task2)
 
+
 def print_tasks(schedule: Schedule):
     for task in schedule.tasks:
         print(task.name)
 
+
 print_tasks(schedule)
 
 
-print('----------------------------------------------')
+print("----------------------------------------------")
 
-print('Test 2: Precedence relations')
+print("Test 2: Precedence relations")
 
 task10 = Task("Task 10", duration=5)
 task11 = Task("Task 11", duration=5)
@@ -54,24 +56,26 @@ task7.add_predecessors([task8])
 task3.add_predecessors([task1])
 task2.add_predecessors([task1])
 
-schedule.add_tasks([task3, task4, task5, task6, task8, task7, task9, task10, task11])
+schedule.add_tasks(
+    [task3, task4, task5, task6, task8, task7, task9, task10, task11]
+)
 
 is_valid = schedule.is_valid_precedence_relations_constraint()
 
 print_tasks(schedule)
 
-print('Is valid:', is_valid)
+print("Is valid:", is_valid)
 
-print('----------------------------------------------')
+print("----------------------------------------------")
 
-print('Test 3: Duplicate tasks')
+print("Test 3: Duplicate tasks")
 
-print('Is valid:', schedule.is_valid_duplicate_tasks_constraint())
+print("Is valid:", schedule.is_valid_duplicate_tasks_constraint())
 
-print('----------------------------------------------')
+print("----------------------------------------------")
 
 
-print('Test 4: Forward Recursion')
+print("Test 4: Forward Recursion")
 
 schedule2 = Schedule()
 
@@ -88,15 +92,17 @@ schedule2.add_tasks([a1, a2, a3, a4])
 
 schedule2.forward_recursion()
 
+
 def print_time_windows_es_ef(schedule: Schedule):
     for task in schedule.tasks:
         print(task.name, [task.earliest_start, task.earliest_finish])
 
+
 print_time_windows_es_ef(schedule2)
 
-print('----------------------------------------------')
+print("----------------------------------------------")
 
-print('Test 5: Backward Recursion')
+print("Test 5: Backward Recursion")
 
 schedule3 = Schedule()
 
@@ -116,16 +122,18 @@ schedule3.add_tasks([b1, b2, b3, b4])
 
 print(schedule3.backward_recursion())
 
+
 def print_time_windows_ls_lf(schedule: Schedule):
     for task in schedule.tasks:
         print(task.name, [task.latest_start, task.latest_finish])
 
+
 print_time_windows_ls_lf(schedule3)
 
 
-print('----------------------------------------------')
+print("----------------------------------------------")
 
-print('Test 6: Makespan')
+print("Test 6: Makespan")
 
 schedule4 = Schedule()
 
@@ -142,13 +150,15 @@ schedule4.add_tasks([c1, c2, c3, c4])
 
 print(schedule4.makespan())
 
-print('----------------------------------------------')
+print("----------------------------------------------")
 
 print("Test 7: Resource availability")
+
 
 def print_time_windows_es_ef(schedule: Schedule):
     for task in schedule.tasks:
         print(task.name, [task.earliest_start, task.earliest_finish])
+
 
 schedule5 = Schedule()
 
@@ -183,15 +193,17 @@ schedule5.add_tasks([d2, d4, d6, d1, d3, d5, d7])
 makespan = schedule5.makespan()
 
 print_time_windows_es_ef(schedule5)
-print('Schedule 5 Makespan:', makespan)
+print("Schedule 5 Makespan:", makespan)
 
-print('----------------------------------------------')
+print("----------------------------------------------")
 
 print("Test 8: Resource availability - using sucesors instead predecessors")
+
 
 def print_time_windows_es_ef(schedule: Schedule):
     for task in schedule.tasks:
         print(task.name, [task.earliest_start, task.earliest_finish])
+
 
 schedule5 = Schedule()
 
@@ -203,9 +215,9 @@ d5 = Task("D5", duration=1)
 d6 = Task("D6", duration=4)
 d7 = Task("D7", duration=1)
 
-#d3.add_predecessors([d1])
+# d3.add_predecessors([d1])
 d1.add_sucessors([d3])
-#d4.add_predecessors([d2])
+# d4.add_predecessors([d2])
 d2.add_sucessors([d4])
 # d5.add_predecessors([d3])
 d3.add_sucessors([d5])
@@ -231,5 +243,5 @@ schedule5.add_tasks([d2, d4, d6, d1, d3, d5, d7])
 makespan = schedule5.makespan()
 
 print_time_windows_es_ef(schedule5)
-print('Schedule 5 Makespan:', makespan)
-print('All tests passed!')
+print("Schedule 5 Makespan:", makespan)
+print("All tests passed!")
